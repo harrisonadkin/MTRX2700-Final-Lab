@@ -1,1 +1,41 @@
 
+Minutes of the team meeting
+4/05/2021, Sydney University
+ 
+Present: Harrison Adkin, Zach Ball, Alessandro Savian 
+Apologies: N/A
+
+Welcome: DG welcomes all and states meeting roles this week
+Notetaker: HA,  Meeting Chair: AS,  Timekeeper: ZB
+
+Meeting Purpose: Team meeting to review the assignment brief and begin to plan idea.
+ 
+Previous Actions:
+N/A
+ 
+Regular Items:
+a) Group aquainted with each other
+b) Group becomes familiar with new github repo, C in codewarrior and the different instruction manuals
+c) Introduction Lab complete
+
+ 
+New Items:
+- Decided to make use of the LIDAR hardware
+- Decided to use the LIDAR sensor to map the environment
+- Decided on Small memory type for our files
+- PROJECT IDEA = Y axis gyro stablisation of LIDAR sensor
+
+AOB:
+- Decided to not use separate branches but rather separate folders
+- Went through the documentation, found out that the raw data is in Degrees Per Hour
+- Got the code returning both the scaled values and the raw values to putty in real time.
+- Changed the scaled to be divided by 250, not 255
+- Isolated the key functions we need for the gyro ONLY, identified that some fucntions for the accelerometer can be cut out
+
+TO BE COMPLETED
+- Harrison & Alessandro - Create a module to interface with the 2 servo motors (test and Implement)
+                        - Protoype a cleaning function 
+- Zach                  - Make Presenation for next week
+ 
+Next Meeting:
+11/05/2021, Sydney University
