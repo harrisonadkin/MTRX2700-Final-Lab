@@ -1,10 +1,13 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
+#include <stdio.h>
+#include "kalman.h"
 int i,j;
 
 
+
 void main(void) {
-  /* put your own code here */
+  //put your own code here 
   PWMCLK = 0;        // 24MHz clock
   PWMPOL = 0b10100000; //start high then go low
   PWMPRCLK = 0b01000100; //prescaler of 16
@@ -20,17 +23,19 @@ void main(void) {
 
   for(;;) {
   
-  /*for (i = 1350; i < 3000; i++) {
-    //delay(1000);
-    PWMDTY67 = i;
-    
-  }*/
+    /*for (i = 1350; i < 3000; i++) {
+      //delay(1000);
+      PWMDTY67 = i;
+      
+    }*/
     for (i = 3000; i > 1400; i--) {
-    //delay(1000);
-    PWMDTY67 = i;
-    
-  }
+      //delay(1000);
+      PWMDTY67 = i;
+      
+    } 
+
     _FEED_COP(); /* feeds the dog */
-  } /* loop forever */
+  //} /* loop forever */
   /* please make sure that you never leave main */
+  }
 }
