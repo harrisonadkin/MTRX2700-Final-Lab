@@ -1,17 +1,18 @@
+#include "rotation.h"
+
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 #include <stdio.h>
-#include "math.h"
-#include "rotation.h"
-#include "accelerometer.h"
-#include "l3g4200d.h"
+#include <math.h>
 
-/*//this function writes to two rotation structs which are dynamically allocated
+#define PI 3.1415926535
+
+//this function writes to two rotation structs which are dynamically allocated
 void AccelRotation (rotation* AccelRot, AccelScaled* AccelData)
 {
   
-  AccelRot->pitch = (atan2(AccelData->x, (sqrt(AccelData->y*AccelData->y + AccelData->z*AccelData->z)))) * 180.0 / 3.14159;
-  AccelRot->roll = (atan2(AccelData->y, (sqrt(AccelData->x*AccelData->x + AccelData->z*AccelData->z)))) * 180.0 / 3.14159; 
+  AccelRot->pitch = (atan2(AccelData->x, sqrt(AccelData->y*AccelData->y + AccelData->z*AccelData->z)) * 180.0) / PI;
+  AccelRot->roll = (atan2(AccelData->y, (sqrt(AccelData->x*AccelData->x + AccelData->z*AccelData->z))) * 180.0) / PI; 
      
    
 }
@@ -31,4 +32,4 @@ void DistCalcs(rotation* TotalRot, rotation* AccelRot, float AccelWeight, rotati
   TotalRot->pitch = AccelWeight*AccelRot->pitch + GyroWeight*GyroRot->pitch;
   TotalRot->roll = AccelWeight*AccelRot->roll + GyroWeight*GyroRot->roll;  
   
-}*/
+}

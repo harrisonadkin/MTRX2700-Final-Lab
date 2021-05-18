@@ -5,40 +5,9 @@
 #include "rotation.h"
 #include "accelerometer.h"
 #include "l3g4200d.h"
+#include "simple_serial.h"
 
-int i,j;
-
-typedef struct rotation { 
-  float pitch;
-  float roll; 
-} rotation;
-
-//this function writes to two rotation structs which are dynamically allocated
-void AccelRotation (rotation* AccelRot, AccelScaled* AccelData)
-{
-  
-  AccelRot->pitch = (atan2(AccelData->x, (sqrt(AccelData->y*AccelData->y + AccelData->z*AccelData->z)))) * 180.0 / 3.14159;
-  AccelRot->roll = (atan2(AccelData->y, (sqrt(AccelData->x*AccelData->x + AccelData->z*AccelData->z)))) * 180.0 / 3.14159; 
-     
-   
-}
-
-//takes rotational velocity and outputs the rotation during that time using d = v*t
-void GyroRotation (rotation* GyroRot, GyroRaw* GyroData, float dT) 
-{
-
-  GyroRot->pitch = GyroData->x * dT;
-  GyroRot->roll =  GyroData->y * dT;
-
-}
-
-void DistCalcs(rotation* TotalRot, rotation* AccelRot, float AccelWeight, rotation* GyroRot, float GyroWeight)
-{
-  
-  TotalRot->pitch = AccelWeight*AccelRot->pitch + GyroWeight*GyroRot->pitch;
-  TotalRot->roll = AccelWeight*AccelRot->roll + GyroWeight*GyroRot->roll;  
-  
-}
+//int i,j;
 
 void main(void) {
   
@@ -46,15 +15,15 @@ void main(void) {
   //rotation *AccelRot;
   //rotation *GyroRot;
   //rotation *TotalRot;
-  AccelScaled *scaled_accel;
-  GyroRaw *scaled_gyro;
+  AccelScaled scaled_accel;
+  GyroRaw scaled_gyro;
+  unsigned char buffer[128];
   
-
+  rotation AccelRot; //= (rotation*) malloc(sizeof(rotation)+5);
+  rotation GyroRot; //= (rotation*) malloc(sizeof(rotation)+5);
+  rotation TotalRot; //= (rotation*) malloc(sizeof(rotation)+5);
   
-  rotation *AccelRot; //= (rotation*) malloc(sizeof(rotation)+5);
-  rotation *GyroRot; //= (rotation*) malloc(sizeof(rotation)+5);
-  rotation *TotalRot; //= (rotation*) malloc(sizeof(rotation)+5);
-  
+  SCI1_Init(BAUD_9600);
   //AccelRot.pitch = 1;
   /*
   PWMCLK = 0;        // 24MHz clock
@@ -70,13 +39,32 @@ void main(void) {
   
 	EnableInterrupts;
   */
-  
+ 
+  scaled_accel.x = 0.5773;
+  scaled_accel.y = 0.5773;
+  scaled_accel.z = 0.5773;
+  scaled_gyro.x = 200;
+  scaled_gyro.y = 200;
+  scaled_gyro.z = 200;
+   
   for(;;) {
 
-    AccelRotation(AccelRot,scaled_accel);
-    GyroRotation(GyroRot,scaled_gyro,0.02);
-    DistCalcs(TotalRot,AccelRot, 0.05,GyroRot, 0.95);
-  
+    AccelRotation(&AccelRot,&scaled_accel);
+    sprintf(buffer, "%.2f, %.2f, %.2f, %.2f, %.2f \r\n", scaled_accel.x, scaled_accel.y, scaled_accel.z, AccelRot.pitch, AccelRot.roll);
+    SCI1_OutString(buffer);
+    
+    GyroRotation(&GyroRot,&scaled_gyro,0.5);
+    sprintf(buffer, "%.2f, %.2f, %.2f, %.2f, %.2f \r\n", scaled_gyro.x, scaled_gyro.y, scaled_gyro.z, GyroRot.pitch, GyroRot.roll);
+    SCI1_OutString(buffer);
+    
+    DistCalcs(&TotalRot, &AccelRot, 0.05, &GyroRot, 0.95);
+    sprintf(buffer, "%.2f, %.2f, %.2f\r\n", TotalRot.pitch, TotalRot.roll);
+    SCI1_OutString(buffer);
+
+    
+    
+    
+    
     /*for (i = 1350; i < 3000; i++) {
       //delay(1000);
       PWMDTY67 = i;

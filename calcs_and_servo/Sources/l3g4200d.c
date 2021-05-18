@@ -151,10 +151,10 @@ void calibrate_gryo(GyroRaw *raw_data, GyroOffsets *offset_data)
 
 void cleaned_gryo(GyroRaw *raw_data, GyroOffsets *offset_data)
 {
+
   raw_data->x = (raw_data->x + offset_data->x)*0.07;
   raw_data->y = (raw_data->y + offset_data->y)*0.07;
   raw_data->z = (raw_data->z + offset_data->z)*0.07;
-
 
 }
 

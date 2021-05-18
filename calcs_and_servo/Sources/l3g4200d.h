@@ -26,9 +26,6 @@ typedef struct GyroOffsets {
   float z;
 } GyroOffsets;
 
-
-
-
 typedef struct MagRaw {
   int x;
   int y;
