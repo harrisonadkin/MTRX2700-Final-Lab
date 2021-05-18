@@ -50,15 +50,15 @@ void main(void) {
   for(;;) {
 
     AccelRotation(&AccelRot,&scaled_accel);
-    sprintf(buffer, "%.2f, %.2f, %.2f, %.2f, %.2f \r\n", scaled_accel.x, scaled_accel.y, scaled_accel.z, AccelRot.pitch, AccelRot.roll);
+    sprintf(buffer, "ax = %.2f, ay = %.2f, az = %.2f, a_pitch: %.2f degs, a_roll: %.2f degs\r\n", scaled_accel.x, scaled_accel.y, scaled_accel.z, AccelRot.pitch, AccelRot.roll);
     SCI1_OutString(buffer);
     
     GyroRotation(&GyroRot,&scaled_gyro,0.5);
-    sprintf(buffer, "%.2f, %.2f, %.2f, %.2f, %.2f \r\n", scaled_gyro.x, scaled_gyro.y, scaled_gyro.z, GyroRot.pitch, GyroRot.roll);
+    sprintf(buffer, "gx = %.2f, gy = %.2f, gz = %.2f, g_pitch: %.2f degs, g_roll: %.2f degs\r\n", scaled_gyro.x, scaled_gyro.y, scaled_gyro.z, GyroRot.pitch, GyroRot.roll);
     SCI1_OutString(buffer);
     
     DistCalcs(&TotalRot, &AccelRot, 0.05, &GyroRot, 0.95);
-    sprintf(buffer, "%.2f, %.2f, %.2f\r\n", TotalRot.pitch, TotalRot.roll);
+    sprintf(buffer, "WEIGHTED; pitch = %.2f degs, roll = %.2f degs\r\n", TotalRot.pitch, TotalRot.roll);
     SCI1_OutString(buffer);
 
     
