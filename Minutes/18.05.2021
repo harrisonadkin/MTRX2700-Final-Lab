@@ -25,7 +25,9 @@ c) Stated the goals of this meeting & lab
 New Items:
 - Alessandro researched Kalmann filters for possible use as a data filter
 - Harrison began combining all previous sections of the code (calibration + serial display) into one workspace
+- Harrison began work on an audio jingle for the start up sequence 
 - Zach began work on the serve motor testing module
+- Alessandro calculated the sensitivity factor to be 0.07, which was then applied to the data cleaning module which handles the gyro data
 
 
 AOB:
