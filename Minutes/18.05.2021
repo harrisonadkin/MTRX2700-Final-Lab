@@ -35,9 +35,9 @@ AOB:
 
 
 TO BE COMPLETED
-- Harrison         - Create user interface to access servos abd gyroscope
-- Alessandro       - Equations for gyro positions + intergrating
-- Zach             - Calibration function for gyro
+- Harrison         - Include all previous software modules seamlessly, interface with gyro data
+- Alessandro       - Figure out how to filter data for gyroscope
+- Zach             - Servo motor testing module (connect servo directions to 4 buttons)
  
 Next Meeting:
 25/05/2021, Sydney University
