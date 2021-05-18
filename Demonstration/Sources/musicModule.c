@@ -22,19 +22,12 @@ int notesRemaining;
    // current notes only across scales 3,4,5. No flats or sharps.
    // duration is value multiplied by 10ms. 100 = 1s of note. 
   unsigned int score[] = {
-    A3,C4,D4,ZZ,D4,F4,E4,C4,F4,G4,F4,E4,D4,E4,D4,C4,A3,
-    ZZ,A3,C4,D4,ZZ,D4,F4,E4,C4,F4,G4,A4,ZZ,A4,ZZ,A4,G4,F4,G4,F4,
-    C5,A4,G4,ZZ,G4,F4,A4,G4,C4,C5,A4,G4,ZZ,G4,A4,C5,D5,
-    ZZ,D5,E5,F5,E5,D5,C5,E5,A4,G4,F4,G4,A4,C5,0};
+    E6,B5,A5,E6,B5, 0};
   unsigned int duration[] = { 
-    100,100,100,3,50,50,75,25,50,50,100,100,50,50,100,100,200,
-    3,50,50,100,3,50,50,75,25,50,50,100,3,100,3,50,50,100,100,200,
-    50,50,100,3,100,50,50,100,100,50,50,100,3,100,50,50,200,
-    3,50,50,100,100,100,100,100,100,50,50,100,100,200,0};
+    100,25,125,50,200,0};
 
-int scoreFunc(void){    
+void bootJingle(void){    
   playnote(score, duration); // pass score and duration pointers into play function
-	return flag;
 }
 
 // delay function given integer duration (multiplies by 10ms) and delays that amount
@@ -77,10 +70,22 @@ void playnote(unsigned int * score, unsigned int * duration){
   }
   // turn off output compares for use later
   TIOS &= 0x11011111;
-  flag = 1; 
 }
 
+void Init_TC5 (void) {
+  // set up the timers for channel 5 to use the interrupt
+  TSCR1 = 0b11110000;   // timer enable, timer stop in wait and freeze, fast flag clear all on
+  TSCR2 = 0b00000011;   // no overflow, prescalar 8
+  TIOS |= 0b00100000;   // channel 5 to output compare, rest for input capture 
+  TCTL1 = 0b00000100;   // channel 5 to toggle OCx output line
+  TIE  |= 0b00100000;   // channel 5 timer interrupt enable 
+    
+}
 
+__interrupt void TC5_ISR(void) { 
+
+  TC5 += frequency; // add delay time to output compare. plays note at correct frequency. 
+} 
 
 
 

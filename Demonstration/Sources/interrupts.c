@@ -1,7 +1,8 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
-#include "timers.h"
 #include "serialModule.h"
+#include "musicModule.h"
+#include "iic.h"
 
 #pragma CODE_SEG __NEAR_SEG NON_BANKED /* Interrupt section for this module. Placement will be in NON_BANKED area. */
 __interrupt void UnimplementedISR(void)
@@ -9,6 +10,16 @@ __interrupt void UnimplementedISR(void)
    /* Unimplemented ISRs trap.*/
    asm BGND;
 }
+
+/*#pragma CODE_SEG __NEAR_SEG NON_BANKED // Interrupt section for this module. Placement will be in NON_BANKED area. //
+__interrupt void SoftwareInterrupt(void)
+{
+   volatile int interrupt_time;
+   interrupt_time = TCNT;
+   
+   // Unimplemented ISRs trap.
+   asm BGND;
+}     */
 
 
 
@@ -62,10 +73,10 @@ const tIsrFunc _vect[] @0xFF80 = {     /* Interrupt table */
         UnimplementedISR,                 /* vector 0x13 */
         UnimplementedISR,                 /* vector 0x12 */
         UnimplementedISR,                 /* vector 0x11 */
-        UnimplementedISR,                          /* vector 0x10 (TOF) */
-        TC7_ISR,                 /* vector 0x0F (TIE, C7I)  */
+        UnimplementedISR,                 /* vector 0x10 (TOF) */
+        TC7_ISR,                           /* vector 0x0F (TIE, C7I)  */
         UnimplementedISR,                 /* vector 0x0E (TIE, C6I)  */
-        UnimplementedISR,                          /* vector 0x0C (TIE, C5I)  */
+        TC5_ISR,                          /* vector 0x0C (TIE, C5I)  */
         UnimplementedISR,                 /* vector 0x0C (TIE, C4I)  */
         UnimplementedISR,                 /* vector 0x0B (TIE, C3I)  */
         UnimplementedISR,                 /* vector 0x0A (TIE, C2I)  */
