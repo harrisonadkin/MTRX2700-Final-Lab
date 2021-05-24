@@ -4,7 +4,7 @@
 #include "derivative.h" /* derivative-specific definitions */
 #include "help.h"
 #include "serialModule.h"
-#include "musicModule.h"
+#include "calibrate.h"
 #include "iic.h"
 #include "l3g4200d_definitions.h"
 #include "l3g4200d.h"
@@ -17,8 +17,7 @@ void main(void) {
   
   EnableInterrupts;
   printHelp();
-  Init_TC5();
-  bootJingle();
+  calibrate();
   
 
   while(1){                   // BJORK the swedish dog

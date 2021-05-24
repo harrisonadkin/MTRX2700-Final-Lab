@@ -14,20 +14,26 @@
 *                                                                             *
 ******************************************************************************/
 
-// create module wide scope functions for remaining notes + time.
-int timeRemaining;
-int notesRemaining;
 
    // example score: Jupiter theme [THE PLANETS] in b flat 
    // current notes only across scales 3,4,5. No flats or sharps.
    // duration is value multiplied by 10ms. 100 = 1s of note. 
-  unsigned int score[] = {
-    E6,B5,A5,E6,B5, 0};
-  unsigned int duration[] = { 
-    100,25,125,50,200,0};
+  unsigned int jingle[] = {
+    A5, C5, G5, E5, 0};
+  unsigned int duration1[] = { 
+    25,25,25,50,0};
+  
+  unsigned int error[] = {
+    G6, ZZ, G6, ZZ, G6, 0};
+  unsigned int duration2[] = { 
+    25,10,25,10,25,0}; 
 
 void bootJingle(void){    
-  playnote(score, duration); // pass score and duration pointers into play function
+  playnote(jingle, duration1); // pass score and duration pointers into play function
+}
+
+void errorSound(void){
+  playnote(error, duration2); 
 }
 
 // delay function given integer duration (multiplies by 10ms) and delays that amount
@@ -39,7 +45,6 @@ void delay10ms(int duration){
 // run through for loop "duration" times that takes 10ms
   for(counter = 0; counter < duration; counter++){
     while(!(TFLG1 & 0b01000000));  // while output compare not reached do nothing
-    timeRemaining -= 1;
     TC6 += 30000;                  // when output compare reached add another 30K cycles then repeat
   }                                // note 30K was calced using Clockspeed/(10*Amount*prescalar) = 10ms
 
@@ -54,8 +59,6 @@ void playnote(unsigned int * score, unsigned int * duration){
   
   //while loop to calculate how many notes and total song duration
   while(duration[i]){
-    timeRemaining += duration[i];
-    notesRemaining += 1;
     i++;
   }
   
@@ -64,7 +67,6 @@ void playnote(unsigned int * score, unsigned int * duration){
 
     frequency = score[j];
     delay10ms(duration[j]);
-    notesRemaining -= 1;
     j++;
 
   }
