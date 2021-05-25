@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "C:\Users\Harrison\OneDrive\Desktop\GitHub\MTRX2700-Final-Lab\Demonstration\bin\Project.absHCS12_Serial_Monitor.abs"
+PROGRAM "C:\Users\hadk2100\Desktop\Demonstration\bin\Project.absHCS12_Serial_Monitor.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -15,11 +15,13 @@ FILE SECTION
 mc9s12dg256.c.o                         Model: SMALL,         Lang: ANSI-C
 main.c.o                                Model: SMALL,         Lang: ANSI-C
 Start12.c.o                             Model: SMALL,         Lang: ANSI-C
+rtshc12.c.o (ansisf.lib)                Model: SMALL,         Lang: ANSI-C
 interrupts.c.o                          Model: SMALL,         Lang: ANSI-C
 serialModule.c.o                        Model: SMALL,         Lang: ANSI-C
 help.c.o                                Model: SMALL,         Lang: ANSI-C
 iic.c.o                                 Model: SMALL,         Lang: ANSI-C
 musicModule.c.o                         Model: SMALL,         Lang: ANSI-C
+calibrate.c.o                           Model: SMALL,         Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -29,7 +31,7 @@ _startupData is allocated at 0xC03B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1100     306
-  _Copy    *toCopyDownBeg 0xC39A
+  _Copy    *toCopyDownBeg 0xC456
 } _startupData;
 
 *********************************************************************************************
@@ -38,9 +40,9 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             59     R     0xC000     0xC03A   ROM_C000
 .startData                        10     R     0xC03B     0xC044   ROM_C000
-.rodata1                         170     R     0xC045     0xC0EE   ROM_C000
-NON_BANKED                       683     R     0xC0EF     0xC399   ROM_C000
-.copy                             31     R     0xC39A     0xC3B8   ROM_C000
+.rodata1                         202     R     0xC045     0xC10E   ROM_C000
+NON_BANKED                       834     R     0xC10F     0xC450   ROM_C000
+.copy                             33     R     0xC456     0xC476   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .data                             28   R/W     0x1100     0x111B   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -386,11 +388,12 @@ NON_BANKED                       683     R     0xC0EF     0xC399   ROM_C000
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ff80                126     R     0xFF80     0xFFFD   .absSeg341
 .bss                              12   R/W     0x111C     0x1127   RAM
+RUNTIME                            5     R     0xC451     0xC455   ROM_C000
 .common                          266   R/W     0x1128     0x1231   RAM
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         439 (dec:     1081)
+READ_ONLY (R):         4F7 (dec:     1271)
 READ_WRITE (R/W):      232 (dec:      562)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -474,11 +477,11 @@ MODULE:                 -- mc9s12dg256.c.o --
      _ATD0DIEN                                   8D       1       1       0   .abs_section_8d
      _PORTAD0                                    8F       1       1       0   .abs_section_8f
      _PWME                                       A0       1       1       0   .abs_section_a0
-     _PWMPOL                                     A1       1       1       0   .abs_section_a1
-     _PWMCLK                                     A2       1       1       0   .abs_section_a2
-     _PWMPRCLK                                   A3       1       1       0   .abs_section_a3
-     _PWMCAE                                     A4       1       1       0   .abs_section_a4
-     _PWMCTL                                     A5       1       1       0   .abs_section_a5
+     _PWMPOL                                     A1       1       1       1   .abs_section_a1
+     _PWMCLK                                     A2       1       1       1   .abs_section_a2
+     _PWMPRCLK                                   A3       1       1       1   .abs_section_a3
+     _PWMCAE                                     A4       1       1       1   .abs_section_a4
+     _PWMCTL                                     A5       1       1       1   .abs_section_a5
      _PWMSCLA                                    A8       1       1       0   .abs_section_a8
      _PWMSCLB                                    A9       1       1       0   .abs_section_a9
      _PWMSDN                                     C4       1       1       0   .abs_section_c4
@@ -616,7 +619,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       0   .abs_section_260
+     _PTH                                       260       1       1       1   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
      _DDRH                                      262       1       1       0   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
@@ -726,12 +729,12 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PWMCNT67                                   B2       2       2       0   .abs_section_b2
      _PWMPER01                                   B4       2       2       0   .abs_section_b4
      _PWMPER23                                   B6       2       2       0   .abs_section_b6
-     _PWMPER45                                   B8       2       2       0   .abs_section_b8
-     _PWMPER67                                   BA       2       2       0   .abs_section_ba
+     _PWMPER45                                   B8       2       2       1   .abs_section_b8
+     _PWMPER67                                   BA       2       2       1   .abs_section_ba
      _PWMDTY01                                   BC       2       2       0   .abs_section_bc
      _PWMDTY23                                   BE       2       2       0   .abs_section_be
-     _PWMDTY45                                   C0       2       2       0   .abs_section_c0
-     _PWMDTY67                                   C2       2       2       0   .abs_section_c2
+     _PWMDTY45                                   C0       2       2       1   .abs_section_c0
+     _PWMDTY67                                   C2       2       2       1   .abs_section_c2
      _SCI0BD                                     C8       2       2       0   .abs_section_c8
      _SCI1BD                                     D0       2       2       1   .abs_section_d0
      _ATD1CTL23                                 122       2       2       0   .abs_section_122
@@ -750,7 +753,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C0EF       E      14       1   NON_BANKED  
+     main                                      C10F      14      20       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
@@ -760,19 +763,23 @@ MODULE:                 -- Start12.c.o --
      _startupData                              C03B       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          1100       0       0       1               
+MODULE:                 -- rtshc12.c.o (ansisf.lib) --
+- PROCEDURES:
+     _CASE_DIRECT_BYTE                         C451       5       5       1   RUNTIME     
+- VARIABLES:
 MODULE:                 -- interrupts.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C0FD       2       2      60   NON_BANKED  
+     UnimplementedISR                          C123       2       2      60   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 MODULE:                 -- serialModule.c.o --
 - PROCEDURES:
-     serialInitialise                          C0FF      47      71       8   NON_BANKED  
-     setControl                                C146      33      51       1   NON_BANKED  
-     writeSerial                               C179      2D      45       1   NON_BANKED  
-     readSerial                                C1A6      38      56       1   NON_BANKED  
-     resetSerial                               C1DE       B      11       2   NON_BANKED  
-     SCI1_ISR                                  C1E9       E      14       1   NON_BANKED  
+     serialInitialise                          C125      47      71       8   NON_BANKED  
+     setControl                                C16C      33      51       1   NON_BANKED  
+     writeSerial                               C19F      2D      45       1   NON_BANKED  
+     readSerial                                C1CC      38      56       1   NON_BANKED  
+     resetSerial                               C204       B      11       2   NON_BANKED  
+     SCI1_ISR                                  C20F       E      14       1   NON_BANKED  
 - VARIABLES:
      index                                     111C       2       2       9   .bss        
      newSerial                                 1128       6       6      12   .common     
@@ -782,7 +789,7 @@ MODULE:                 -- serialModule.c.o --
      statusRegister                            1231       1       1       2   .common     
 MODULE:                 -- help.c.o --
 - PROCEDURES:
-     printHelp                                 C1F7      DF     223       1   NON_BANKED  
+     printHelp                                 C21D      BC     188       1   NON_BANKED  
 - VARIABLES:
      STRING.Welcome.to.our.Gimba.1             C045      19      25       1   .rodata1    
      STRING.Below.is.some.assist.2             C05E      42      66       1   .rodata1    
@@ -790,11 +797,11 @@ MODULE:                 -- help.c.o --
      STRING.Beginning.Calibratio.4             C0D2      19      25       1   .rodata1    
      STRING....5                               C0EB       4       4       1   .rodata1    
      WRITE                                     1100       2       2       6   .data       
-     SCI1                                      1102       2       2       8   .data       
-     READ                                      111E       2       2       2   .bss        
+     SCI1                                      1102       2       2       7   .data       
+     READ                                      111E       2       2       1   .bss        
 MODULE:                 -- iic.c.o --
 - PROCEDURES:
-     TC7_ISR                                   C2D6      27      39       1   NON_BANKED  
+     TC7_ISR                                   C2D9      27      39       1   NON_BANKED  
 - VARIABLES:
      alarmSignaled                             1120       1       1       1   .bss        
      currentTime                               1121       2       2       3   .bss        
@@ -802,36 +809,50 @@ MODULE:                 -- iic.c.o --
      alarmSet                                  1125       1       1       2   .bss        
 MODULE:                 -- musicModule.c.o --
 - PROCEDURES:
-     bootJingle                                C2FD       C      12       1   NON_BANKED  
-     errorSound                                C309       C      12       1   NON_BANKED  
-     delay10ms                                 C315      2E      46       1   NON_BANKED  
-     playnote                                  C343      3E      62       2   NON_BANKED  
-     Init_TC5                                  C381      11      17       1   NON_BANKED  
-     TC5_ISR                                   C392       8       8       1   NON_BANKED  
+     bootJingle                                C300       C      12       1   NON_BANKED  
+     delay10ms                                 C30C      2E      46       1   NON_BANKED  
+     playnote                                  C33A      3E      62       1   NON_BANKED  
+     Init_TC5                                  C378      11      17       1   NON_BANKED  
+     TC5_ISR                                   C389       8       8       1   NON_BANKED  
 - VARIABLES:
-     error                                     1104       C      12       2   .data       
-     duration2                                 1110       C      12       2   .data       
+     jingle                                    1104       A      10       1   .data       
+     duration1                                 110E       A      10       1   .data       
      frequency                                 1126       2       2       2   .bss        
+MODULE:                 -- calibrate.c.o --
+- PROCEDURES:
+     calibrate                                 C391      9D     157       1   NON_BANKED  
+     servoInit                                 C42E      23      35       1   NON_BANKED  
+- VARIABLES:
+     STRING.1...1                              C0EF       5       5       1   .rodata1    
+     STRING.2...2                              C0F4       5       5       1   .rodata1    
+     STRING.3...3                              C0F9       5       5       1   .rodata1    
+     STRING.4...4                              C0FE       5       5       1   .rodata1    
+     STRING.5...5                              C103       5       5       1   .rodata1    
+     STRING.xxx...6                            C108       7       7       1   .rodata1    
+     WRITE                                     1118       2       2       5   .data       
+     SCI1                                      111A       2       2       5   .data       
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     14      0
+  main.c.o                                     0     20      0
   Start12.c.o                                  0     59      0
+  rtshc12.c.o (ansisf.lib)                     0      5      0
   interrupts.c.o                               0      2    126
   serialModule.c.o                           268    248      0
-  help.c.o                                     6    223    170
+  help.c.o                                     6    188    170
   iic.c.o                                      6     39      0
-  musicModule.c.o                             26    157      0
-  other                                      256     12     31
+  musicModule.c.o                             22    145      0
+  calibrate.c.o                                4    192     32
+  other                                      256     12     33
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".data"
-  WRITE SCI1 error duration2 
+  WRITE SCI1 jingle duration1 WRITE SCI1 
 SECTION: ".bss"
   index READ alarmSignaled currentTime alarmTime alarmSet frequency 
 SECTION: ".init"
@@ -839,10 +860,12 @@ SECTION: ".init"
 SECTION: ".rodata1"
   STRING.Welcome.to.our.Gimba.1 STRING.Below.is.some.assist.2 
   STRING.Please.press.enter.k.3 STRING.Beginning.Calibratio.4 STRING....5 
+  STRING.1...1 STRING.2...2 STRING.3...3 STRING.4...4 STRING.5...5 
+  STRING.xxx...6 
 SECTION: "NON_BANKED"
   main UnimplementedISR serialInitialise setControl writeSerial readSerial 
-  resetSerial SCI1_ISR printHelp TC7_ISR bootJingle errorSound delay10ms 
-  playnote Init_TC5 TC5_ISR 
+  resetSerial SCI1_ISR printHelp TC7_ISR bootJingle delay10ms playnote Init_TC5 
+  TC5_ISR calibrate servoInit 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1525,6 +1548,8 @@ SECTION: ".abs_section_2ae"
   _CAN4RXTSR 
 SECTION: ".abs_section_2be"
   _CAN4TXTSR 
+SECTION: "RUNTIME"
+  _CASE_DIRECT_BYTE 
 SECTION: ".common"
   newSerial runCondition inputString outputString statusRegister 
 SECTION: ".abs_section_ff80"
@@ -1632,11 +1657,11 @@ OBJECT LIST SORTED BY ADDRESS
      _ATD0DR6                                    9C       2       2       0   .abs_section_9c
      _ATD0DR7                                    9E       2       2       0   .abs_section_9e
      _PWME                                       A0       1       1       0   .abs_section_a0
-     _PWMPOL                                     A1       1       1       0   .abs_section_a1
-     _PWMCLK                                     A2       1       1       0   .abs_section_a2
-     _PWMPRCLK                                   A3       1       1       0   .abs_section_a3
-     _PWMCAE                                     A4       1       1       0   .abs_section_a4
-     _PWMCTL                                     A5       1       1       0   .abs_section_a5
+     _PWMPOL                                     A1       1       1       1   .abs_section_a1
+     _PWMCLK                                     A2       1       1       1   .abs_section_a2
+     _PWMPRCLK                                   A3       1       1       1   .abs_section_a3
+     _PWMCAE                                     A4       1       1       1   .abs_section_a4
+     _PWMCTL                                     A5       1       1       1   .abs_section_a5
      _PWMSCLA                                    A8       1       1       0   .abs_section_a8
      _PWMSCLB                                    A9       1       1       0   .abs_section_a9
      _PWMCNT01                                   AC       2       2       0   .abs_section_ac
@@ -1645,12 +1670,12 @@ OBJECT LIST SORTED BY ADDRESS
      _PWMCNT67                                   B2       2       2       0   .abs_section_b2
      _PWMPER01                                   B4       2       2       0   .abs_section_b4
      _PWMPER23                                   B6       2       2       0   .abs_section_b6
-     _PWMPER45                                   B8       2       2       0   .abs_section_b8
-     _PWMPER67                                   BA       2       2       0   .abs_section_ba
+     _PWMPER45                                   B8       2       2       1   .abs_section_b8
+     _PWMPER67                                   BA       2       2       1   .abs_section_ba
      _PWMDTY01                                   BC       2       2       0   .abs_section_bc
      _PWMDTY23                                   BE       2       2       0   .abs_section_be
-     _PWMDTY45                                   C0       2       2       0   .abs_section_c0
-     _PWMDTY67                                   C2       2       2       0   .abs_section_c2
+     _PWMDTY45                                   C0       2       2       1   .abs_section_c0
+     _PWMDTY67                                   C2       2       2       1   .abs_section_c2
      _PWMSDN                                     C4       1       1       0   .abs_section_c4
      _SCI0BD                                     C8       2       2       0   .abs_section_c8
      _SCI0CR1                                    CA       1       1       0   .abs_section_ca
@@ -1800,7 +1825,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       0   .abs_section_260
+     _PTH                                       260       1       1       1   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
      _DDRH                                      262       1       1       0   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
@@ -1876,11 +1901,13 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
      WRITE                                     1100       2       2       6   .data       
-     SCI1                                      1102       2       2       8   .data       
-     error                                     1104       C      12       2   .data       
-     duration2                                 1110       C      12       2   .data       
+     SCI1                                      1102       2       2       7   .data       
+     jingle                                    1104       A      10       1   .data       
+     duration1                                 110E       A      10       1   .data       
+     WRITE                                     1118       2       2       5   .data       
+     SCI1                                      111A       2       2       5   .data       
      index                                     111C       2       2       9   .bss        
-     READ                                      111E       2       2       2   .bss        
+     READ                                      111E       2       2       1   .bss        
      alarmSignaled                             1120       1       1       1   .bss        
      currentTime                               1121       2       2       3   .bss        
      alarmTime                                 1123       2       2       1   .bss        
@@ -1898,63 +1925,96 @@ OBJECT LIST SORTED BY ADDRESS
      STRING.Please.press.enter.k.3             C0A0      32      50       1   .rodata1    
      STRING.Beginning.Calibratio.4             C0D2      19      25       1   .rodata1    
      STRING....5                               C0EB       4       4       1   .rodata1    
-     main                                      C0EF       E      14       1   NON_BANKED  
-     UnimplementedISR                          C0FD       2       2      60   NON_BANKED  
-     serialInitialise                          C0FF      47      71       8   NON_BANKED  
-     setControl                                C146      33      51       1   NON_BANKED  
-     writeSerial                               C179      2D      45       1   NON_BANKED  
-     readSerial                                C1A6      38      56       1   NON_BANKED  
-     resetSerial                               C1DE       B      11       2   NON_BANKED  
-     SCI1_ISR                                  C1E9       E      14       1   NON_BANKED  
-     printHelp                                 C1F7      DF     223       1   NON_BANKED  
-     TC7_ISR                                   C2D6      27      39       1   NON_BANKED  
-     bootJingle                                C2FD       C      12       1   NON_BANKED  
-     errorSound                                C309       C      12       1   NON_BANKED  
-     delay10ms                                 C315      2E      46       1   NON_BANKED  
-     playnote                                  C343      3E      62       2   NON_BANKED  
-     Init_TC5                                  C381      11      17       1   NON_BANKED  
-     TC5_ISR                                   C392       8       8       1   NON_BANKED  
+     STRING.1...1                              C0EF       5       5       1   .rodata1    
+     STRING.2...2                              C0F4       5       5       1   .rodata1    
+     STRING.3...3                              C0F9       5       5       1   .rodata1    
+     STRING.4...4                              C0FE       5       5       1   .rodata1    
+     STRING.5...5                              C103       5       5       1   .rodata1    
+     STRING.xxx...6                            C108       7       7       1   .rodata1    
+     main                                      C10F      14      20       1   NON_BANKED  
+     UnimplementedISR                          C123       2       2      60   NON_BANKED  
+     serialInitialise                          C125      47      71       8   NON_BANKED  
+     setControl                                C16C      33      51       1   NON_BANKED  
+     writeSerial                               C19F      2D      45       1   NON_BANKED  
+     readSerial                                C1CC      38      56       1   NON_BANKED  
+     resetSerial                               C204       B      11       2   NON_BANKED  
+     SCI1_ISR                                  C20F       E      14       1   NON_BANKED  
+     printHelp                                 C21D      BC     188       1   NON_BANKED  
+     TC7_ISR                                   C2D9      27      39       1   NON_BANKED  
+     bootJingle                                C300       C      12       1   NON_BANKED  
+     delay10ms                                 C30C      2E      46       1   NON_BANKED  
+     playnote                                  C33A      3E      62       1   NON_BANKED  
+     Init_TC5                                  C378      11      17       1   NON_BANKED  
+     TC5_ISR                                   C389       8       8       1   NON_BANKED  
+     calibrate                                 C391      9D     157       1   NON_BANKED  
+     servoInit                                 C42E      23      35       1   NON_BANKED  
+     _CASE_DIRECT_BYTE                         C451       5       5       1   RUNTIME     
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
+rtshc12.c.o (ansisf.lib):
+  _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
+  _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LNEG _LCOM _LINC 
+  _LDEC _LMUL _LMULU16x32 _LMULS16x32 _lDivMod _LDIVU _NEG_P _LDIVS _LMODU 
+  _LMODS _ILSEXT _COPY _CASE_DIRECT _CASE_CHECKED _CASE_CHECKED_BYTE 
+  _CASE_SEARCH _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL 
+  _FPCMP 
 iic.c.o:
   iicinit iic_request_data iic_read_data iic_send_data iicresponse iicstart 
   iicstop iicrestart iictransmit iicswrcv iicreceive iicreceivem1 
   iicreceivelast iicreceiveone setAlarm delay Init_TC7 
+musicModule.c.o:
+  errorSound 
 NOT USED VARIABLES
+rtshc12.c.o (ansisf.lib):
+  _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 help.c.o:
   SCI0 
 musicModule.c.o:
-  WRITE SCI1 jingle duration1 READ SCI0 
+  WRITE SCI1 error duration2 READ SCI0 
+calibrate.c.o:
+  READ SCI0 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC39A ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC456 ---- SIZE       4 ---
 Filling bytes inserted
- 00191101
-------- ROM-ADDRESS: 0xC39E ---- RAM-ADDRESS: 0x1101 ---- SIZE       1 ---
+ 001B1101
+------- ROM-ADDRESS: 0xC45A ---- RAM-ADDRESS: 0x1101 ---- SIZE       1 ---
 Name of initialized Object : WRITE:1
  01
-------- ROM-ADDRESS: 0xC39F ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC45B ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xC3A0 ---- RAM-ADDRESS: 0x1103 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC45C ---- RAM-ADDRESS: 0x1103 ---- SIZE       1 ---
 Name of initialized Object : SCI1:1
  01
-------- ROM-ADDRESS: 0xC3A1 ---- RAM-ADDRESS: 0x1104 ---- SIZE      10 ---
-Name of initialized Object : error
- 03BD001403 BD001403BD
-------- ROM-ADDRESS: 0xC3AB ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xC45D ---- RAM-ADDRESS: 0x1104 ---- SIZE       8 ---
+Name of initialized Object : jingle
+ 06A90B3307 7908E3
+------- ROM-ADDRESS: 0xC465 ---- SIZE       3 ---
 Filling bytes inserted
  000000
-------- ROM-ADDRESS: 0xC3AE ---- RAM-ADDRESS: 0x1111 ---- SIZE       9 ---
-Name of initialized Object : duration2:1
- 19000A0019 000A0019
-------- ROM-ADDRESS: 0xC3B7 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC468 ---- RAM-ADDRESS: 0x110F ---- SIZE       7 ---
+Name of initialized Object : duration1:1
+ 1900190019 0032
+------- ROM-ADDRESS: 0xC46F ---- SIZE       3 ---
+Filling bytes inserted
+ 000000
+------- ROM-ADDRESS: 0xC472 ---- RAM-ADDRESS: 0x1119 ---- SIZE       1 ---
+Name of initialized Object : WRITE:1
+ 01
+------- ROM-ADDRESS: 0xC473 ---- SIZE       1 ---
+Filling bytes inserted
+ 00
+------- ROM-ADDRESS: 0xC474 ---- RAM-ADDRESS: 0x111B ---- SIZE       1 ---
+Name of initialized Object : SCI1:1
+ 01
+------- ROM-ADDRESS: 0xC475 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1963,7 +2023,7 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
-main                      USES printHelp 
+main                      USES printHelp servoInit calibrate 
 serialInitialise          USES index runCondition newSerial inputString 
                                 outputString setControl 
 setControl                USES newSerial _SCI1BD _SCI1CR2 
@@ -1976,15 +2036,19 @@ SCI1_ISR                  USES newSerial readSerial writeSerial
 printHelp                 USES STRING.Welcome.to.our.Gimba.1 
                                 STRING.Below.is.some.assist.2 STRING.Please.press.enter.k.3 
                                 STRING.Beginning.Calibratio.4 STRING....5 SCI1 WRITE serialInitialise READ 
-                                Init_TC5 bootJingle errorSound 
+                                Init_TC5 bootJingle 
 TC7_ISR                   USES _TCNT _TC7 _TFLG1 currentTime alarmSet 
                                 alarmTime alarmSignaled 
-bootJingle                USES error duration2 playnote 
-errorSound                USES error duration2 playnote 
+bootJingle                USES jingle duration1 playnote 
 delay10ms                 USES _TIOS _TCNT _TC6 _TFLG1 
 playnote                  USES frequency delay10ms _TIOS 
 Init_TC5                  USES _TSCR1 _TSCR2 _TIOS _TCTL1 _TIE 
 TC5_ISR                   USES _TC5 frequency 
+calibrate                 USES STRING.1...1 STRING.2...2 STRING.3...3 
+                                STRING.4...4 STRING.5...5 STRING.xxx...6 _PTH 
+                                _CASE_DIRECT_BYTE SCI1 WRITE serialInitialise 
+servoInit                 USES _PWMCLK _PWMPOL _PWMPRCLK _PWMCTL _PWMCAE 
+                                _PWMPER45 _PWMDTY45 _PWMPER67 _PWMDTY67 
 _vect                     USES UnimplementedISR SCI1_ISR TC7_ISR TC5_ISR 
 
 *********************************************************************************************
@@ -1995,23 +2059,27 @@ DEPENDENCY TREE
  +- main                
  |  | 
  |  +- printHelp           
+ |  |  | 
+ |  |  +- serialInitialise    
+ |  |  |  | 
+ |  |  |  +- setControl          
+ |  |  |       
+ |  |  +- Init_TC5            
+ |  |  |    
+ |  |  +- bootJingle          
+ |  |     | 
+ |  |     +- playnote            
+ |  |        | 
+ |  |        +- delay10ms           
+ |  |             
+ |  +- servoInit           
+ |  |    
+ |  +- calibrate           
  |     | 
- |     +- serialInitialise    
- |     |  | 
- |     |  +- setControl          
- |     |       
- |     +- Init_TC5            
+ |     +- _CASE_DIRECT_BYTE   
  |     |    
- |     +- bootJingle          
- |     |  | 
- |     |  +- playnote            
- |     |     | 
- |     |     +- delay10ms           
- |     |          
- |     +- errorSound          
- |        | 
- |        +- playnote             (see above)
- |           
+ |     +- serialInitialise     (see above)
+ |        
  +- _Startup            
     | 
     +- Init                
@@ -2042,6 +2110,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 1081
+Number of blocks to be downloaded: 8
+Total size of all blocks to be downloaded: 1271
 
