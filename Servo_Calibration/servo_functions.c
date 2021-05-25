@@ -19,7 +19,7 @@ void servo_setup(void){
   PWMPER67 = 30000; //PWMPER = (50Hz signal * 16 * PWMPER)/ 24 MHz
   PWMDTY67 = 2200; //PWMDTY = on/off = PWMDTY/PWMPER  
   PWME = 0b10100000;
-  //delay_movement(10);
+  delay_movement(10);
   
 }
 
@@ -35,7 +35,7 @@ int servo_demo(void){
         PWMDTY67 = i;
         PWME = 0b00000000;
         PWME = 0b10000000;
-        //delay_movement(1); 
+        delay_movement(1); 
     
   }
   if (PTH == 0b11111101){
@@ -43,14 +43,14 @@ int servo_demo(void){
         PWMDTY67 = i;
         PWME = 0b00000000;
         PWME = 0b10000000; 
-        //delay_movement(1); 
+        delay_movement(1); 
   }
   if (PTH == 0b11111011){
         j++;
         PWMDTY45 = i;
         PWME = 0b00000000;
         PWME = 0b00100000;
-        //delay_movement(1);  
+        delay_movement(1);  
     
   }
   if (PTH == 0b11111110){
@@ -58,7 +58,7 @@ int servo_demo(void){
         PWMDTY45 = i;
         PWME = 0b00000000;
         PWME = 0b00100000;
-        //delay_movement(1);  
+        delay_movement(1);  
     
   }
   if (PTH == 0b11111100){
