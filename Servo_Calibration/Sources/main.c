@@ -8,9 +8,8 @@
 void main(void) {
   /* put your own code here */
  	EnableInterrupts;
+  delay_setup();
   servo_setup();
-  //delay_setup();
-  //delay_movement(1);
   servo_demo();
   
   
