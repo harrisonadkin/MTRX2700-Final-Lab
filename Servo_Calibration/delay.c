@@ -20,8 +20,8 @@ void delay_movement(int kk){
 void delay_setup(void){
   TSCR1 = 0b11110000;
   TSCR2 = 0b00000011;
-  TIOS |= 0b00100000;
-  TCTL1 = 0b00000100;
-  TIE  |= 0b00100000;
+  //TIOS |= 0b00100000;
+ // TCTL1 = 0b00000100;
+ // TIE  |= 0b00100000;
   
 }
