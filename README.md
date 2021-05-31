@@ -7,7 +7,7 @@ Code for MTRX2700 Final Demonstration
 
 ### Roles and Responsibilities
 > - Alessandro Savian: Servo initialization, movement calculations and logic, interfacing with drivers.
-> - Zach Ball: Presentation, offsets.
+> - Zach Ball: Presentation, servo logic, offsets.
 > - Harrison Adkin: Calibration, module integration.
 
 ### Project Overview
