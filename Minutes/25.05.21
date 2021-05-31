@@ -1,1 +1,37 @@
-f
+Minutes of the team meeting
+25/05/2021, Sydney University
+ 
+Present: Harrison Adkin, Zach Ball, Alessandro Savian 
+Apologies: N/A
+
+Welcome: DG welcomes all and states meeting roles this week
+Notetaker: HA,  Meeting Chair: AS,  Timekeeper: ZB
+
+Meeting Purpose: Combine all current parts of the code and move towards completing the project.
+ 
+Previous Actions:
+- Zach completed the demostration servo functions + Logic
+- Harrison intergrated all previously completed code into the demonstration module 
+- Alessandro commited preliminary code for the degree calculations
+
+ 
+Regular Items:
+a) Welcomed everyone
+b) Presented the tasks we were assigned to complete over the week
+c) Stated the goals of this meeting & lab
+
+
+ 
+New Items:
+- Alessandro worked on accelerometer functions for calibration
+- Zach Completed servo logic 
+- Harrison used Zach's logic to create a similar function inside of the intergrated main file
+
+
+TO BE COMPLETED
+- Harrison         - Include all previous software modules seamlessly
+- Alessandro       - Assist in intergration
+- Zach             - Finish the presentation and offset functions
+ 
+Next Meeting:
+25/05/2021, Sydney University
