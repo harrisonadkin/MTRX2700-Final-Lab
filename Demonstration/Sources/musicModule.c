@@ -21,12 +21,12 @@
   unsigned int jingle[] = {
     A5, C5, G5, E5, 0};
   unsigned int duration1[] = { 
-    25,25,25,50,0};
+    250,250,250,500,0};
   
   unsigned int error[] = {
     G6, ZZ, G6, ZZ, G6, 0};
   unsigned int duration2[] = { 
-    25,10,25,10,25,0}; 
+    250,100,250,100,250,0}; 
 
 void bootJingle(void){    
   playnote(jingle, duration1); // pass score and duration pointers into play function
@@ -37,20 +37,19 @@ void errorSound(void){
 }
 
 // delay function given integer duration (multiplies by 10ms) and delays that amount
-void delay10ms(int duration){
+void delay1ms(int duration){
   int counter;
   TIOS |= 0b01000000;     // enable channel 6 for output compare
-  TC6   = TCNT + 30000;   // set an output compare amount that is 30K cycles after current time
+  TC6   = TCNT + 3000;   // set an output compare amount that is 30K cycles after current time
 
 // run through for loop "duration" times that takes 10ms
   for(counter = 0; counter < duration; counter++){
     while(!(TFLG1 & 0b01000000));  // while output compare not reached do nothing
-    TC6 += 30000;                  // when output compare reached add another 30K cycles then repeat
+    TC6 += 3000;                  // when output compare reached add another 30K cycles then repeat
   }                                // note 30K was calced using Clockspeed/(10*Amount*prescalar) = 10ms
 
   TIOS &= 0b10111111;              // turn 6 back off for later use
 }
-
 
 
 // Takes pointer to score and duration arrays and plays each note for that duration
@@ -66,7 +65,7 @@ void playnote(unsigned int * score, unsigned int * duration){
   while(score[j]){
 
     frequency = score[j];
-    delay10ms(duration[j]);
+    delay1ms(duration[j]);
     j++;
 
   }

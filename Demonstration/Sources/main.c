@@ -4,20 +4,23 @@
 #include "derivative.h" /* derivative-specific definitions */
 #include "help.h"
 #include "serialModule.h"
-#include "calibrate.h"
+#include "lcdModule.h"
+#include "calibrateServo.h"
 #include "iic.h"
 #include "l3g4200d_definitions.h"
 #include "l3g4200d.h"
 
-
-  
+int *xMaxMin;
+int *yMaxMin; 
 
 void main(void) {
   /* put your own code here */
   
   EnableInterrupts;
   printHelp();
-  calibrate();
+  servoInit();
+  calibrateServo(&xMaxMin, &yMaxMin);
+  
   
 
   while(1){                   // BJORK the swedish dog
