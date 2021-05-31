@@ -7,14 +7,14 @@ Code for MTRX2700 Final Demonstration
 
 ### Roles and Responsibilities
 > - Alessandro Savian: Servo initialization, movement calculations and logic, interfacing with drivers.
-> - Zach Ball: Presentation, servo logic, offsets.
+> - Zach Ball: Servo logic, offsets, presentation, .
 > - Harrison Adkin: Calibration, module integration.
 
 ### Project Overview
 This code uses the gyroscope (L3G4200D) and accelerometer (ADXL345) mounted to the PTU to achieve stabilization in one axis (pitch). This function aims to address various diseases which have the symptom of trembling.
 
 ### Module 1 - Calibration
-This module aims to address the issue of drifting which is inherent in sensors...
+This module aims to address the issue of drifting which is inherent in sensors. This module calculates the error offsets for later data cleaning as well as general testing of the hardware. This module includes the calibration procedure prompts given to the user through the liquid crystal display, as well as the calibration calculations itself. 
 
  4 seperate strings are used to demonstrate each of the tasks.
 #### Interfacing
@@ -118,7 +118,7 @@ Code for MTRX2700 Final Demonstration
 This code uses the gyroscope (L3G4200D) and accelerometer (ADXL345) mounted to the PTU to achieve stabilization in one axis (pitch). This function aims to address various diseases which have the symptom of trembling.
 
 ### Module 1 - Calibration
-This module aims to address the issue of drifting which is inherent in sensors...
+This module aims to address the issue of drifting which is inherent in sensors. This module calculates the error offsets for later data cleaning as well as general testing of the hardware. This module includes the calibration procedure prompts given to the user through the liquid crystal display, as well as the calibration calculations itself. 
 
  4 seperate strings are used to demonstrate each of the tasks.
 #### Interfacing
