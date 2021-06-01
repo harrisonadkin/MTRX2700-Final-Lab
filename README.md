@@ -11,12 +11,12 @@ Code for MTRX2700 Final Demonstration
 > - Harrison Adkin: Calibration, module integration.
 
 ### Project Overview
-This code uses the gyroscope (L3G4200D) and accelerometer (ADXL345) mounted to the PTU to achieve stabilization in one axis (pitch). This function aims to address various diseases which have the symptom of trembling.
+This code uses the gyroscope (L3G4200D) and accelerometer (ADXL345) mounted to the PTU to achieve stabilization in one axis (pitch). This function aims to address various muscle degenerative diseases which have the symptom of trembling. Through countering this we aim to provide such people with a means to complete everyday tasks and thus maintain a normal life.
 
-<img width="908" alt="Modular Diagram " src="https://user-images.githubusercontent.com/79881907/120250183-896c0800-c2c0-11eb-8a9a-be58dbe7584c.png">
+### Module 1 – Interfacing
+This initial module aimed to provide seamless connection to everyday users, by providing them with a connection both in software and hardware to the device. Moreover, the use of the buzzer to provide auditory prompts allowed users to best interact with the machine, particularly with no prior understanding of the practise of Mechatronics.
 
-
-### Module 1 - Calibration
+### Module 2 - Calibration
 This module aims to address the issue of drifting which is inherent in sensors. This module calculates the error offsets for later data cleaning as well as general testing of the hardware. This module includes the calibration procedure prompts given to the user through the liquid crystal display, as well as the calibration calculations itself. 
 
  4 seperate strings are used to demonstrate each of the tasks.
