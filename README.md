@@ -29,6 +29,11 @@ The second interfacing interaction was in hardware, through the utilisation of t
 *LCD block diagram*
 <img width="550" alt="Screen Shot 2021-06-01 at 10 22 55 am" src="https://user-images.githubusercontent.com/79881907/120251019-7e66a700-c2c3-11eb-9e51-c45d5c6f728e.png">
 
+<img width="359" alt="Screen Shot 2021-06-01 at 10 23 07 am" src="https://user-images.githubusercontent.com/79881907/120251064-ab1abe80-c2c3-11eb-9c7f-1aadcea7a774.png">
+
+<img width="469" alt="Screen Shot 2021-06-01 at 10 22 59 am" src="https://user-images.githubusercontent.com/79881907/120251070-afdf7280-c2c3-11eb-90b5-b9930a0da4ee.png">
+
+
 
 ### Module 2 - Calibration
 This module aims to address the issue of drifting which is inherent in sensors. This module calculates the error offsets for later data cleaning as well as general testing of the hardware. This module includes the calibration procedure prompts given to the user through the liquid crystal display, as well as the calibration calculations itself. 
