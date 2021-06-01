@@ -65,46 +65,37 @@ writeLCD(String_Pointer, CMD/DATA)
 
 ### Module 2 - Calibration
 This module aims to address the issue of drifting which is inherent in sensors. This module calculates the error offsets for later data cleaning as well as general testing of the hardware. This module includes the calibration procedure prompts given to the user through the liquid crystal display, as well as the calibration calculations itself. 
+The calibration begun through a servo calibration, that required button input to move servos on the x or z axis. The dipswitches were used to decipher between the two axis, and the accompanying buttons were then utilised to either move the servo, or store the current location. Note that the servos were programmed to never exceed certain bounds, and an error prompt played if this was forced. Also note that the LCD displayed instructions for use throughout practise, and that impropper dipswitch configuration resulted in the 'config dipswitch' prompt. On storing the required max/min values of the servos, the system would utilise this data to facilitate the bounds through which its gyroscopic correction would occur.
 
- 4 seperate strings are used to demonstrate each of the tasks.
-#### Interfacing
+*Servo Calibration Module Diagram*
+<img width="613" alt="Cal Servo " src="https://user-images.githubusercontent.com/79881907/120251699-b53dbc80-c2c5-11eb-8b99-2090eaf8e256.png">
 
-\\HOW TO
+---
 
-```
-LDX #String_1
-JSR allUppercase
-```
+The second calibration device calibrated the sensor data to account for drift. This was done through reading the i^2c device, and determining the offset from a neutral position. Specifically, the system set the servos to neutral and prompted the user to place the device on a bench or neutral position. Then we could utilise the consistent readings to decipher a valid offset to subtract from each reading. This offset was stored in a struct, and applied to all further readings from the device. 
 
-To run task 2, uncomment
+*Sensor Calibration Module Diagram*
+<img width="507" alt="Cal Accel" src="https://user-images.githubusercontent.com/79881907/120251705-ba9b0700-c2c5-11eb-8270-e919d2c7f43b.png">
 
+
+#### Best Use
+The latter of these modules was entirely in software, and required no user interaction to successfully perform. However, the former required a button input to operate. This was assisted through both serial and LCD prompts, however best use practises are still necessary to prevent system damage. For example, it is impropper to physically adjust the servos. Further, the initialisation of the servos provides the duty cycle required to move them, and an input out of the range of the max/min duty cycle will cause jittery, false servo movement. The following buttons provided the following movement:
 ```
-LDX #String_2
-JSR allLowercase
-```
-To run task 3, uncomment
-```
-LDX #String_3
-JSR everyWordStartUpper
-```
-To run task 4, uncomment
-```
-LDX #String_4
-JSR everySentenceStartUpper
+PH0 -> 1: Move servo right
+PH1 -> 1: Move servo left
+PH2 -> 1: Store right position
+PH3 -> 1: Store left position
+
+PH7 -> 1: Switch axis (right turns to up, left to down)
 ```
 
-Check the string using `SPC String_Number` in CodeWarrior.
 
-### Valid input
-
-Any combination of letters, whitespaces and fullstops are considered to be valid.
-
-### Module 2 - Logic
-
+### Module 3 - Logic
+The logic module aimed to adjust for gyroscopic motion of the system to create a gimble-like device that remains in a neutral position. It did this through calculations of the rotation through pitch over a certain time period. The module then provided this data to the duty cycle of the servo to counter this motion and remain neutral. 
 
 #### Interfacing
 
-This module consists of five functions which take the following structs, `GyroRaw`, `AccelRaw`, `AccelScaled`, `rotation` and `duty` which take the following forms,
+This module consists of five functions which take the following structs, `GyroRaw`, `AccelRaw`, `AccelScaled`, `rotation` and `duty` in the following forms;
 
 ```
 rotation {
@@ -125,6 +116,27 @@ raw/scaled {
   float x;
 }
 ```
+
+These structs were utilised in the following modules:
+
+Firstly the I^2C module took data from the system and parsed it through to the various initialised structs.
+*I^2C interface*
+<img width="311" alt="i^2C" src="https://user-images.githubusercontent.com/79881907/120251712-be2e8e00-c2c5-11eb-8dab-2555ab6771ab.png">
+
+---
+
+The Rotation calculations then applied a system of equations to determine the rotation pitch the system had undergone in real time.
+*Rotation Calculations*
+<img width="385" alt="Rotation" src="https://user-images.githubusercontent.com/79881907/120251717-c1297e80-c2c5-11eb-82a7-8c17a919c208.png">
+
+---
+
+Finally the servo system calculated the corresponding required servo movement and enacted it on the system.
+*Servo Movement*
+<img width="463" alt="Servo Movement" src="https://user-images.githubusercontent.com/79881907/120251726-c4bd0580-c2c5-11eb-90cb-af1ecf7501aa.png">
+
+
+
 These structs undergo certain conversions to bring about the intended function of the system through the following functions,
 
 `convertUnits`
@@ -143,16 +155,13 @@ Requires the structs which hold information on changes in orientation. Uses thes
 Converts the angles in the `rotation` struct to be in terms of duty cycle which can be assigned to the corresponding PWMDTYXX registers to achieve the module intended function.
 
 ### Testing
-1. 
+To properly test the logic of this system the following steps should be implemented:
+
+1. Set up the servo calibration on a table such that it encapsulates the full range of motion
+2. Move the HCS12 board around, then return it back to being flush with the surface of the table
+3. Check with an accelerometer app, the orientation of the LIDAR, it should read 0,0,1 depending on the orientation of the phone
+4. Repeat steps 1-3 however this time limit the range of motion to only include a smaller section of its total capabilities, but ensure that the neutral position is still in the bounds
+5. This can be further checked through altering the code to output the included strings, and comparing them against expected values at the natural position
 
 
-<img width="613" alt="Cal Servo " src="https://user-images.githubusercontent.com/79881907/120251699-b53dbc80-c2c5-11eb-8b99-2090eaf8e256.png">
-
-<img width="507" alt="Cal Accel" src="https://user-images.githubusercontent.com/79881907/120251705-ba9b0700-c2c5-11eb-8270-e919d2c7f43b.png">
-
-<img width="311" alt="i^2C" src="https://user-images.githubusercontent.com/79881907/120251712-be2e8e00-c2c5-11eb-8dab-2555ab6771ab.png">
-
-<img width="385" alt="Rotation" src="https://user-images.githubusercontent.com/79881907/120251717-c1297e80-c2c5-11eb-82a7-8c17a919c208.png">
-
-<img width="463" alt="Servo Movement" src="https://user-images.githubusercontent.com/79881907/120251726-c4bd0580-c2c5-11eb-90cb-af1ecf7501aa.png">
 
