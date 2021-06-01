@@ -146,4 +146,13 @@ Converts the angles in the `rotation` struct to be in terms of duty cycle which 
 1. 
 
 
+<img width="613" alt="Cal Servo " src="https://user-images.githubusercontent.com/79881907/120251699-b53dbc80-c2c5-11eb-8b99-2090eaf8e256.png">
+
+<img width="507" alt="Cal Accel" src="https://user-images.githubusercontent.com/79881907/120251705-ba9b0700-c2c5-11eb-8270-e919d2c7f43b.png">
+
+<img width="311" alt="i^2C" src="https://user-images.githubusercontent.com/79881907/120251712-be2e8e00-c2c5-11eb-8dab-2555ab6771ab.png">
+
+<img width="385" alt="Rotation" src="https://user-images.githubusercontent.com/79881907/120251717-c1297e80-c2c5-11eb-82a7-8c17a919c208.png">
+
+<img width="463" alt="Servo Movement" src="https://user-images.githubusercontent.com/79881907/120251726-c4bd0580-c2c5-11eb-90cb-af1ecf7501aa.png">
 
