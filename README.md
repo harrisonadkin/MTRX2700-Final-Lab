@@ -21,11 +21,13 @@ This initial module aimed to provide seamless connection to everyday users, by p
 The interaction through software utilised a two way serial communication, which would print information or read from a terminal program PuTTY. This was done through a serial module that operated with an input, a function and a baud rate. Note that in hardware, any calling of serial port 0 must be removed (commented) as it creates interference errors with the interrupts. Also note that varying baud rate must be considered to facilitate correct information parsing. 
 
 *Serial block diagram*
+<img width="616" alt="Screen Shot 2021-06-01 at 10 22 52 am" src="https://user-images.githubusercontent.com/79881907/120251010-7575d580-c2c3-11eb-8d8e-7aeaef8c6da3.png">
+
 
 The second interfacing interaction was in hardware, through the utilisation of the liquid crystal display unit. This was particularly useful to update real time instructions when using the board to drive the circuit (i.e: when the buttons were used in calibration). This was chosen to allow a connection in hardware that would communication throughout operation, if say, the code were used to drive a real-world device that needed to communicate with user. The system was chosen to operate without a cursor or blinking, to prevent the false interpretation of active communication. 
 
 *LCD block diagram*
-
+<img width="550" alt="Screen Shot 2021-06-01 at 10 22 55 am" src="https://user-images.githubusercontent.com/79881907/120251019-7e66a700-c2c3-11eb-9e51-c45d5c6f728e.png">
 
 
 ### Module 2 - Calibration
