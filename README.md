@@ -35,14 +35,14 @@ The second interfacing interaction was in hardware, through the utilisation of t
 Finally, the use of the buzzer through an implemented "music module" allowed both a boot and error noise signal to provide the user with an auditory que on correct use. In particular the boot noise was to signal not to use the hardware until boot had completed (with a complementary boot LCD instruction) and the error noise was leveraged to prevent misuse of the board (i.e physically disrupting the servos to incorrect & harmful positions). This was done through an output compare that triggered the buzzer to operate at different PWM frequencies based on the respective note, and hold for a certain duration. Varying scores for any buzzer sound can be implemented within the module.  
 
 *Music Module block diagram*
-<img width="359" alt="Screen Shot 2021-06-01 at 10 23 07 am" src="https://user-images.githubusercontent.com/79881907/120251064-ab1abe80-c2c3-11eb-9c7f-1aadcea7a774.png">
+<img width="469" alt="Screen Shot 2021-06-01 at 10 22 59 am" src="https://user-images.githubusercontent.com/79881907/120251070-afdf7280-c2c3-11eb-90b5-b9930a0da4ee.png">
 
 ---
 
 Ultimately, these three modules were triggered through a boot/help function that initialised on running the script. Despite this providing no additional features to the system, it housed this module and compartmentalised how the three interfacing systems were used. 
 
 *Help Module block diagram*
-<img width="469" alt="Screen Shot 2021-06-01 at 10 22 59 am" src="https://user-images.githubusercontent.com/79881907/120251070-afdf7280-c2c3-11eb-90b5-b9930a0da4ee.png">
+<img width="359" alt="Screen Shot 2021-06-01 at 10 23 07 am" src="https://user-images.githubusercontent.com/79881907/120251064-ab1abe80-c2c3-11eb-9c7f-1aadcea7a774.png">
 
 #### Best Use
 The Serial operates with the following inputs:
