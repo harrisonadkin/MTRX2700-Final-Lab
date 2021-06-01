@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # MTRX2700-Final-Lab
 Code for MTRX2700 Final Demonstration
 
@@ -44,7 +44,24 @@ Ultimately, these three modules were triggered through a boot/help function that
 *Help Module block diagram*
 <img width="469" alt="Screen Shot 2021-06-01 at 10 22 59 am" src="https://user-images.githubusercontent.com/79881907/120251070-afdf7280-c2c3-11eb-90b5-b9930a0da4ee.png">
 
-### Examination of code
+#### Best Use
+The Serial operates with the following inputs:
+Where the BaudRate was set to 156 for our operation, the interface was 1 for hardware and the function was determined based on read/write.
+```
+SerialInitialise(BaudRate, Interface, Function, String_Pointer)
+```
+
+The musicmodule operates with no input with the following command:
+```
+bootjingle()
+```
+
+The LCD module operates with the following inputs:
+Where CMD / DATA indicated wether the input was a command function to perform a task (i.e: move to next line) or data to write.
+```
+writeLCD(String_Pointer, CMD/DATA)
+```
+
 
 ### Module 2 - Calibration
 This module aims to address the issue of drifting which is inherent in sensors. This module calculates the error offsets for later data cleaning as well as general testing of the hardware. This module includes the calibration procedure prompts given to the user through the liquid crystal display, as well as the calibration calculations itself. 
