@@ -120,6 +120,9 @@ Code for MTRX2700 Final Demonstration
 ### Project Overview
 This code uses the gyroscope (L3G4200D) and accelerometer (ADXL345) mounted to the PTU to achieve stabilization in one axis (pitch). This function aims to address various diseases which have the symptom of trembling.
 
+<img width="908" alt="Modular Diagram " src="https://user-images.githubusercontent.com/79881907/120250371-36df1b80-c2c1-11eb-936e-9fc3d0f1986e.png">
+
+
 ### Module 1 - Calibration
 This module aims to address the issue of drifting which is inherent in sensors. This module calculates the error offsets for later data cleaning as well as general testing of the hardware. This module includes the calibration procedure prompts given to the user through the liquid crystal display, as well as the calibration calculations itself. 
 
